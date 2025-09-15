@@ -20,6 +20,7 @@ from django.contrib import admin
 from django.http import HttpResponse,Http404
 from django.urls import path
 from django.shortcuts import render
+from bookmark import views
 
 def movies(request):
     movie_title = [
@@ -79,4 +80,6 @@ urlpatterns = [
     path('languge/<str:lang>/',languge),
     path('languge/python/',python),
     path('gugu/<int:num>/',gugu),
+    path('bookmark/',views.bookmark_list),
+    path('bookmark/<int:pk>/',views.bookmark_detail),
 ]
