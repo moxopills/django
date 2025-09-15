@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.title }}</title>
+</head>
+<body>
+    <h1>{{ data.title }}</h1>
+    <hr>
+    <p><strong>Description:</strong> {{ data.description }}</p>
+    <p><strong>Start Date:</strong>{{ data.start_date }}</p>
+    <p><strong>End Date:</strong>{{ data.end_date }}</p>
+    <p><strong>Completed:</strong>{{ data.completed|yesno:"Yes or No" }}</p>
+    <p><strong>Create At:</strong>{{ data.create_at }}</p>
+    <p><strong>Modified At:</strong>{{ data.modified_at }}</p>
+
+    <p><a href="todo_list.html"> Back to Todo List </a> </p>
+</body>
+</html>
