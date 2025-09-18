@@ -5,10 +5,14 @@
     <title>Title</title>
 </head>
 <body>
+{% extends 'base.html' %}
+{%  block content %}
+		<h1>로그인</h1>
     <form method="POST">
         {% csrf_token %}
-        {{  form.as_p }} {#  form에 있는 정보가 p 태그로 들어갑니다 #}
+        {{  form.as_p }}
         <button>submit</button>
     </form>
+{% endblock %}
 </body>
 </html>

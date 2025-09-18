@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class Blog(models.Model):
     CATEGORY_CHOICES = (
@@ -10,6 +13,8 @@ class Blog(models.Model):
     category = models.CharField('카테고리', max_length=100, choices=CATEGORY_CHOICES)
     title = models.CharField('제목',max_length=100)
     content = models.TextField('본문')
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField('작성일자',auto_now_add=True)
     updated_at = models.DateTimeField('수정일자',auto_now=True)

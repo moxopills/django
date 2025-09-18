@@ -24,6 +24,11 @@ def login(request):
     form = AuthenticationForm(request, request.POST or None)
     if form.is_valid():
         django_login(request, form.get_user())
+
+        next = request.GET.get("next")
+        if next:
+            return redirect(next)
+
         return redirect(reverse('blog_list')) # url을 찾는 reverse함수와 urls.py에 적은 name을 활용해 동적으로 작성
 
     else:
