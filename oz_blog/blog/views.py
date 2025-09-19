@@ -23,7 +23,7 @@ def blog_list(request):
     page_object = paginator.get_page(page)
 
     context = {
-        'blogs':blogs,
+        'object_list': page_object.object_list,
         'page_object': page_object,
      }
 
@@ -42,7 +42,7 @@ def blog_create(request):
         blog = form.save(commit=False)
         blog.author = request.user
         blog.save()
-        return redirect(reverse('blog_detail', kwargs={'pk':blog.id}))
+        return redirect(reverse('blog_detail', kwargs={'pk':blog.pk}))
 
     context = {'form': form}
     return render(request, 'blog_create.html', context)
@@ -66,4 +66,4 @@ def blog_delete(request, pk):
     blog = get_object_or_404(Blog, pk=pk, author=request.user)
     blog.delete()
 
-    return redirect(reverse('blog_list'))
+    return redirect(reverse('fb:list'))

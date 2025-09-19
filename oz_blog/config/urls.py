@@ -14,24 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from enum import member
 
 from django.contrib import admin
-
+from django.shortcuts import redirect, render
 from blog import views
 from member import views as member_views
 from django.urls import path, include
+from django.views.generic import TemplateView, RedirectView
+from django.views import View
+from blog import cb_views
 
-from member.views import login
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
+
+class TestView(View):
+    def get(self,request):
+        return render(request,'test.get.html')
+    def post(self,request):
+        return render(request,'test.post.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',views.blog_list,name='blog_list'),
-    path('<int:pk>',views.blog_detail,name='blog_detail'),
-    path('create',views.blog_create,name='blog_create'),
-    path('<int:pk>/update/', views.blog_update, name='blog_update'),
-    path('<int:pk>/delete/', views.blog_delete, name='blog_delete'),
+    path('', include('blog.urls')),
+    path('fb/', include('blog.fbv_urls')),
+
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/',member_views.sign_up,name='signup'),
+    path('signup/', member_views.sign_up, name='signup'),
     path('login/', member_views.login, name='login'),
 ]
