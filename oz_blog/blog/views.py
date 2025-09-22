@@ -45,7 +45,7 @@ def blog_create(request):
         return redirect(reverse('blog_detail', kwargs={'pk':blog.pk}))
 
     context = {'form': form}
-    return render(request, 'blog_create.html', context)
+    return render(request, 'blog_form.html', context)
 
 @login_required()
 def blog_update(request, pk):
