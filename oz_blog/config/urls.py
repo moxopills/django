@@ -16,29 +16,38 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.shortcuts import redirect, render
-from blog import views
+from django.shortcuts import render
+from django.conf.urls.static import static
+from config import settings
 from member import views as member_views
 from django.urls import path, include
-from django.views.generic import TemplateView, RedirectView
-from django.views import View
-from blog import cb_views
+from django.views.generic import TemplateView, View
 
-
+# 간단한 테스트 뷰
 class AboutView(TemplateView):
-    template_name = 'about.html'
+    template_name = "about.html"
 
 class TestView(View):
-    def get(self,request):
-        return render(request,'test.get.html')
-    def post(self,request):
-        return render(request,'test.post.html')
+    def get(self, request):
+        return render(request, "test.get.html")
+
+    def post(self, request):
+        return render(request, "test.post.html")
+
 
 urlpatterns = [
-    path('', include('blog.urls')),
-    path('fb/', include('blog.fbv_urls')),
+    path("admin/", admin.site.urls),                 # 관리자 페이지
+    path("", include("blog.urls")),                  # 블로그 앱을 루트('/')에 연결
+    path("fb/", include("blog.fbv_urls")),           # FBV 기반 blog URL
 
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('signup/', member_views.sign_up, name='signup'),
-    path('login/', member_views.login, name='login'),
+    path("accounts/", include("django.contrib.auth.urls")),  # 로그인/로그아웃 기본 제공
+    path("signup/", member_views.sign_up, name="signup"),
+    path("login/", member_views.login, name="login"),
+
+    path('summernote/', include('django_summernote.urls')),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

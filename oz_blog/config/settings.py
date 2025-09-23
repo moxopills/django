@@ -48,6 +48,7 @@ OWN_APPS = [
 
 THIRD_PARTY_APPS = [
     'django_extensions',
+    'django_summernote',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + OWN_APPS + THIRD_PARTY_APPS
@@ -124,7 +125,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
@@ -135,11 +135,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-#login
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 STATIC_URL = 'static/'
 STATIC_DIR = BASE_DIR / 'static'
@@ -149,3 +146,38 @@ STATICFILES_DIRS =[
 ]
 
 STATIC_ROOT = BASE_DIR / '.static_root'
+
+#login
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
+SUMMERBOT_CONFIG = {
+    'iframe':False,
+    'summernote':{
+        'airMode':False,
+        'width': '100%',
+        'height': '480',
+
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold','underline','clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul','ol','paragraph']],
+            ['table', ['table']],
+            ['insert', ['link','picture']],
+            ['view', ['fullscreen','codeview','help']],
+        ],
+        'lang': 'ko-KR',
+
+        'codemirror': {
+            'mode':'htmlmixed',
+            'lineNumbers': 'true',
+            'theme': 'monokai',
+        },
+    },
+    'attachment_require_authentication':True,
+    'disable_attachment': False,
+    'attachment_absolute_uri': True,
+}
